@@ -1,6 +1,7 @@
 # Rainy Day
 
 [![Build Status](https://travis-ci.org/t-izbassar/rainy-day.svg?branch=master)](https://travis-ci.org/t-izbassar/rainy-day)
+[![codecov](https://codecov.io/gh/t-izbassar/rainy-day/branch/master/graph/badge.svg)](https://codecov.io/gh/t-izbassar/rainy-day)
 
 ## Overall description
 
