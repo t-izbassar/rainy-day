@@ -1,5 +1,7 @@
 # Rainy Day
 
+[![Build Status](https://travis-ci.org/t-izbassar/rainy-day.svg?branch=master)](https://travis-ci.org/t-izbassar/rainy-day)
+
 ## Overall description
 
 It's a repository with source codes for application,
