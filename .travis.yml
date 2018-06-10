@@ -4,4 +4,6 @@ cache:
   directories:
   - $HOME/.m2
 script:
-  - mvn clean qulice:check
+  - mvn clean
+  - mvn cobertura:cobertura
+  - mvn qulice:check
