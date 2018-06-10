@@ -182,7 +182,6 @@ SOFTWARE.
         <profile>
             <id>integration-test</id>
             <properties>
-                <docker.host>unix:///var/run/docker.sock</docker.host>
                 <docker.verbose>true</docker.verbose>
             </properties>
             <build>

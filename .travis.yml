@@ -3,11 +3,13 @@ jdk: oraclejdk8
 cache:
   directories:
   - $HOME/.m2
+sudo: required
+services:
+  - docker
 install:
   - mvn package
 script:
   - mvn clean
-  - mvn cobertura:cobertura
-  - mvn qulice:check
+  - mvn verify -P integration-test
 after_success:
   - bash <(curl -s https://codecov.io/bash)
