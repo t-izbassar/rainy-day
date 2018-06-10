@@ -111,6 +111,12 @@ SOFTWARE.
             <version>4.5.5</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.jcabi</groupId>
+            <artifactId>jcabi-http</artifactId>
+            <version>1.17.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -203,6 +209,12 @@ SOFTWARE.
                                         <ports>
                                             <port>8080:8080</port>
                                         </ports>
+                                        <wait>
+                                            <http>
+                                                <url>http://localhost:8080</url>
+                                            </http>
+                                            <time>15000</time>
+                                        </wait>
                                     </run>
                                 </image>
                             </images>

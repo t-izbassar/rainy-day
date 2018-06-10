@@ -23,13 +23,8 @@
  */
 package com.github.tizbassar.rainyday;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
-import org.cactoos.text.TextOf;
+import com.jcabi.http.Response;
+import com.jcabi.http.request.JdkRequest;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -44,19 +39,12 @@ public final class HelloEndpointIT {
 
     @Test
     public void shouldSayHi() throws Exception {
-        final CloseableHttpClient client = HttpClients.createDefault();
-        final CloseableHttpResponse response = client.execute(
-            new HttpGet("http://localhost:8080/rainy-day/hello")
+        final Response response =
+            new JdkRequest("http://localhost:8080/rainy-day/hello")
+                .fetch();
+        MatcherAssert.assertThat(
+            response.body(),
+            Matchers.is("HELLO")
         );
-        try {
-            final HttpEntity entity = response.getEntity();
-            MatcherAssert.assertThat(
-                new TextOf(entity.getContent()).asString(),
-                Matchers.is("HELLO")
-            );
-            EntityUtils.consume(entity);
-        } finally {
-            response.close();
-        }
     }
 }
