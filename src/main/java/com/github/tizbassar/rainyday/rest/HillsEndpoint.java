@@ -23,6 +23,8 @@
  */
 package com.github.tizbassar.rainyday.rest;
 
+import com.github.tizbassar.rainyday.calc.Volume;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -34,17 +36,40 @@ import javax.ws.rs.core.MediaType;
  * @since 0.1
  */
 @Path("/hills")
-public final class HillsEndpoint {
+public class HillsEndpoint {
+
+    /**
+     * Volume.
+     */
+    private final Volume volume;
+
+    /**
+     * Ctor.
+     *
+     * <p>Required by JAX-RS specification.</p>
+     */
+    public HillsEndpoint() {
+        this(null);
+    }
+
+    /**
+     * Ctor.
+     * @param volume Volume
+     */
+    @Inject
+    public HillsEndpoint(final Volume volume) {
+        this.volume = volume;
+    }
 
     /**
      * Calculates water volume for given hills.
      * @param hills Given hills
      * @return Calculated water volume
-     * @checkstyle NonStaticMethodCheck (10 lines)
+     * @checkstyle DesignForExtensionCheck (8 lines)
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public int waterVolume(final HillsDto hills) {
-        return hills.getHills().size();
+        return this.volume.calculate(hills.getHills());
     }
 }

@@ -21,47 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.tizbassar.rainyday.rest;
+package com.github.tizbassar.rainyday.calc;
 
-import com.github.tizbassar.rainyday.calc.SizeBasedVolume;
-import java.util.Arrays;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
+import java.util.List;
+import javax.ejb.Local;
 
 /**
- * Test cases for {@link HillsEndpoint}.
+ * Volume of the holes, that were covered by rain.
  *
  * @since 0.1
- * @checkstyle JavadocMethodCheck (500 lines)
  */
-public final class HillsEndpointTest {
+@Local
+public interface Volume {
 
     /**
-     * Endpoint under test.
+     * Calculates volume of the holes for given hills.
+     * @param hills Hills
+     * @return Calculated volume
      */
-    private final HillsEndpoint endpoint = new HillsEndpoint(
-        new SizeBasedVolume()
-    );
-
-    @Test
-    public void shouldHaveEmptyConstructorAsItIsRequiredBySpec() {
-        MatcherAssert.assertThat(
-            new HillsEndpoint(),
-            Matchers.notNullValue()
-        );
-    }
-
-    @Test
-    public void shouldCalculateWaterVolume() {
-        // @checkstyle MagicNumberCheck (8 lines)
-        MatcherAssert.assertThat(
-            this.endpoint.waterVolume(
-                new HillsDto(
-                    Arrays.asList(1, 2, 3)
-                )
-            ),
-            Matchers.is(3)
-        );
-    }
+    int calculate(List<Integer> hills);
 }

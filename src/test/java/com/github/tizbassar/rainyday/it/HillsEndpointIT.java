@@ -41,12 +41,10 @@ import org.junit.Test;
  *
  * @since 0.1
  * @checkstyle JavadocMethodCheck (100 lines)
+ * @checkstyle JavadocVariableCheck (100 lines)
  */
 public final class HillsEndpointIT {
 
-    /**
-     * JsonBuilderFactory is used to create json objects.
-     */
     private final JsonBuilderFactory factory = Json.createBuilderFactory(null);
 
     @Test
