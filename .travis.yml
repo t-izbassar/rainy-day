@@ -11,5 +11,6 @@ install:
 script:
   - mvn clean
   - mvn verify -P integration-test
+  - mvn cobertura:cobertura
 after_success:
   - bash <(curl -s https://codecov.io/bash)
