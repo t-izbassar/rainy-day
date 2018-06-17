@@ -49,6 +49,10 @@ public final class HillsEndpointIT {
 
     private final String port = System.getProperty("docker.local.port");
 
+    private final String context = System.getProperty(
+        "application.context.path"
+    );
+
     @Test
     public void shouldReturnBadMethodIfMethodIsNotPost() throws Exception {
         this.requestToTestServer().fetch().as(RestResponse.class)
@@ -107,7 +111,7 @@ public final class HillsEndpointIT {
 
     private Request requestToTestServer() {
         final String address = String.format(
-            "http://localhost:%s/rainy-day/hills", this.port
+            "http://localhost:%s/%s/hills", this.port, this.context
         );
         return new JdkRequest(address)
             .header("Content-Type", "application/json");

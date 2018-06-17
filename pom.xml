@@ -271,6 +271,7 @@ SOFTWARE.
                         <configuration>
                             <systemPropertyVariables>
                                 <docker.local.port>${docker.local.port}</docker.local.port>
+                                <application.context.path>${project.build.finalName}</application.context.path>
                             </systemPropertyVariables>
                         </configuration>
                         <executions>
