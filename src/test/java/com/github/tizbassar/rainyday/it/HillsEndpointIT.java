@@ -32,7 +32,6 @@ import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonBuilderFactory;
 import org.hamcrest.Matchers;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -40,8 +39,9 @@ import org.junit.Test;
  * {@link com.github.tizbassar.rainyday.rest.HillsEndpoint}.
  *
  * @since 0.1
- * @checkstyle JavadocMethodCheck (100 lines)
- * @checkstyle JavadocVariableCheck (100 lines)
+ * @checkstyle JavadocMethodCheck (150 lines)
+ * @checkstyle JavadocVariableCheck (150 lines)
+ * @checkstyle MagicNumberCheck (150 lines)
  */
 public final class HillsEndpointIT {
 
@@ -70,28 +70,15 @@ public final class HillsEndpointIT {
     }
 
     @Test
-    public void shouldReturnSizeOfTheHills() throws Exception {
-        // @checkstyle MagicNumberCheck (4 lines)
-        this.givenRequestedHills(1, 2, 3, 4)
-            .assertBody(
-                Matchers.is("4")
-            );
-    }
-
-    @Test
-    @Ignore
     public void shouldCalculateWaterVolumeForFirstExample() throws Exception {
-        // @checkstyle MagicNumberCheck (4 lines)
-        this.givenRequestedHills(3, 2, 4, 1)
+        this.givenRequestedHills(3, 2, 4, 1, 2)
             .assertBody(
                 Matchers.is("2")
             );
     }
 
     @Test
-    @Ignore
     public void shouldCalculateWaterVolumeForSecondExample() throws Exception {
-        // @checkstyle MagicNumberCheck (4 lines)
         this.givenRequestedHills(4, 1, 1, 0, 2, 3)
             .assertBody(
                 Matchers.is("8")

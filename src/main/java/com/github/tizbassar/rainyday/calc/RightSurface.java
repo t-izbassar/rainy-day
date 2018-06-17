@@ -23,20 +23,44 @@
  */
 package com.github.tizbassar.rainyday.calc;
 
+import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.Stateless;
+import java.util.ListIterator;
 
 /**
- * Calculates volume by returning the number of elements for given hills.
+ * Surface from right-end perspective.
  *
  * @since 0.1
  */
-@Stateless
-public class SizeBasedVolume implements Volume {
+final class RightSurface implements Surface {
 
-    // @checkstyle DesignForExtensionCheck (4 lines)
+    /**
+     * Hills.
+     */
+    private final List<Integer> hills;
+
+    /**
+     * Ctor.
+     * @param hills Given hills.
+     */
+    RightSurface(final List<Integer> hills) {
+        this.hills = hills;
+    }
+
     @Override
-    public int calculate(final List<Integer> hills) {
-        return hills.size();
+    public List<Integer> character() {
+        final List<Integer> result = new ArrayList<>(this.hills);
+        final ListIterator<Integer> iterator = this.hills.listIterator(
+            this.hills.size()
+        );
+        int current = 0;
+        while (iterator.hasPrevious()) {
+            final int hill = iterator.previous();
+            if (hill > current) {
+                current = hill;
+            }
+            result.set(iterator.nextIndex(), current);
+        }
+        return result;
     }
 }
