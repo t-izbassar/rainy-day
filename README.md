@@ -10,6 +10,7 @@
 - [Technologies](#technologies)
 - [How to build and run](#how-to-build-and-run)
 - [Principles](#principles)
+- [Final thoughts](#final-thoughts)
 - [License](#license)
 
 ## Overall description
@@ -196,6 +197,21 @@ to get things done. Sometimes we need to introduce workaround,
 instead of strategic solution to the problem. But those decisions
 should be made with the consequences in mind, as they will
 follow us, until we really fix the issue.
+
+## Final thoughts
+
+Thanks for your time. Overall I don't like the algorithm based
+tasks as they don't showcase the important questions of
+writing maintainable and clean code. Of course you can
+try to do it as clean as possible and that's what I've tried
+to do here. It's certainly not ideal, so I'm looking forward to
+constructive comments, from which I can learn. Hope, I've
+demonstrated my thought process and it will be a good
+starting point to get to know each other. In the end, it
+all comes down to the collaboration process with people,
+so it's not so important what exactly the technology was
+or what exactly the algorithm was. The important thing is
+to share the same values and to try to achieve the same goals.
 
 ## License
 
