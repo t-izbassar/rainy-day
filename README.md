@@ -156,10 +156,46 @@ is managing the complexity of the sources. I would
 like to keep complexity as low as possible and in
 order to do that I'm trying to follow those principles:
 
-@todo #2 Describe important principles in bullet list,
- that I'm trying to follow. Listing them is important
- as they will help to understand the reasoning behind
- my decisions.
+* I think, that projects should have continuous integration
+environment, that checks the sources for every merged change.
+This is important, as this will help to caught mistakes
+as fast as possible. Of course it's depends of the quality
+of the build process. Also the proposed changes (via PRs)
+should also be checked.
+* I think, that projects should have static analysis rules from
+the day 0. The stricter they are - the better, as this will
+allow everyone to follow the same guidelines, which is
+very valuable in long-term projects.
+* I think it's better to have end-to-end functional tests, that will
+allow to safely refactor implementation details, than 100% coverage
+with unit tests (which is still valuable).
+* I think we should limit the amount of mutable classes and
+control the changes to the state. The most tricky part is to
+control changes to some shared state. Managing immutable
+objects is much more easier and that what we should try to use
+more.
+* I think we should carefully control the boundaries of the
+classes and overall coupling of the components and layers.
+That is the most hardest thing to achieve (from my personal
+feeling). It's very easy to `inject` something you need
+straight to the point where you need it instead of evaluating
+the abstractions and managing coupling carefully.
+* I think that application should fail as fast as possible.
+The more explicit the failure is - the better, as it will
+allow to catch mistake earlier and in the right place. Instead
+of swallowing the exception, we should throw it. Instead
+of returning `null` or `0` for invalid case it's better to
+throw exception and let application to fail, as this will
+lead to discovering the root cause of the problem, rather
+than having to do workarounds and wondering on how we
+received `null` in that particular place.
+
+Of course, there is no ideal software and no ideal projects.
+Sometimes we need to make certain `dirty` decisions in order
+to get things done. Sometimes we need to introduce workaround,
+instead of strategic solution to the problem. But those decisions
+should be made with the consequences in mind, as they will
+follow us, until we really fix the issue.
 
 ## License
 
