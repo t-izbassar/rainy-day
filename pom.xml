@@ -201,6 +201,8 @@ SOFTWARE.
             <id>integration-test</id>
             <properties>
                 <docker.verbose>true</docker.verbose>
+                <docker.exposed.port>8081</docker.exposed.port>
+                <docker.local.port>8082</docker.local.port>
             </properties>
             <build>
                 <plugins>
@@ -215,20 +217,26 @@ SOFTWARE.
                                     <build>
                                         <from>jboss/wildfly</from>
                                         <ports>
-                                            <port>8080</port>
+                                            <port>${docker.exposed.port}</port>
                                         </ports>
                                         <assembly>
                                             <descriptorRef>artifact</descriptorRef>
                                             <targetDir>/opt/jboss/wildfly/standalone/deployments</targetDir>
                                         </assembly>
+                                        <entryPoint>
+                                            <shell>/opt/jboss/wildfly/bin/standalone.sh \
+                                                -b 0.0.0.0 \
+                                                -Djboss.http.port=${docker.exposed.port}
+                                            </shell>
+                                        </entryPoint>
                                     </build>
                                     <run>
                                         <ports>
-                                            <port>8080:8080</port>
+                                            <port>${docker.local.port}:${docker.exposed.port}</port>
                                         </ports>
                                         <wait>
                                             <http>
-                                                <url>http://localhost:8080</url>
+                                                <url>http://localhost:${docker.local.port}</url>
                                             </http>
                                             <time>20000</time>
                                         </wait>
@@ -260,6 +268,11 @@ SOFTWARE.
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <version>2.21.0</version>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <docker.local.port>${docker.local.port}</docker.local.port>
+                            </systemPropertyVariables>
+                        </configuration>
                         <executions>
                             <execution>
                                 <goals>

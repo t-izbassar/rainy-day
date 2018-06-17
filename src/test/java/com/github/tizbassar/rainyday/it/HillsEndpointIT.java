@@ -47,6 +47,8 @@ public final class HillsEndpointIT {
 
     private final JsonBuilderFactory factory = Json.createBuilderFactory(null);
 
+    private final String port = System.getProperty("docker.local.port");
+
     @Test
     public void shouldReturnBadMethodIfMethodIsNotPost() throws Exception {
         this.requestToTestServer().fetch().as(RestResponse.class)
@@ -104,7 +106,10 @@ public final class HillsEndpointIT {
     }
 
     private Request requestToTestServer() {
-        return new JdkRequest("http://localhost:8080/rainy-day/hills")
+        final String address = String.format(
+            "http://localhost:%s/rainy-day/hills", this.port
+        );
+        return new JdkRequest(address)
             .header("Content-Type", "application/json");
     }
 
