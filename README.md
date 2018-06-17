@@ -18,6 +18,69 @@ very important to determine the amount of volume,
 that water have took. That's when this application
 comes into play.
 
+## Implementation idea and complexity
+
+Suppose we have a surface, with hills values as follows:
+```java
+final List<Integer> hills = Arrays.asList(3, 2, 4, 1, 2);
+```
+
+The idea is to compare the highest values from left perspective
+(meaning that we are going from start to end) to the highest
+values from right perspective (going from end to start), which
+in my program represented by [LeftSurface.java](src/main/java/com/github/tizbassar/rainyday/calc/LeftSurface.java)
+and by [RightSurface.java](src/main/java/com/github/tizbassar/rainyday/calc/RightSurface.java).
+
+For the given above surface they will produce character of it
+as follows:
+```java
+// will produce 3, 3, 4, 4, 4
+final List<Integer> left = new LeftSurface(hills).character();
+// will produce 4, 4, 4, 2, 2
+final List<Integer> right = new RightSurface(hills).character();
+```
+
+We are doing so, because we need to know the relevant high values
+between hills. Having those high values now we can calculate
+the volume that is covered by rain (check [ActualVolume.java](src/main/java/com/github/tizbassar/rainyday/calc/ActualVolume.java)):
+
+```java
+for (int index = 0; index < hills.size(); index += 1) {
+    final int min = Math.min(left.get(index), right.get(index));
+    final int hill = hills.get(index);
+    if (hill < min) {
+        result += min - hill;
+    }
+}
+```
+
+So, the complexity is `O(n)` as we are doing the linear
+iteration operation over the given hills. We do it three
+times and we are using additional space for left and right
+character of the surface (so we need triple as much space as
+the given hills).
+
+The algorithm is exposed via REST-service, which is accepting
+the POST request to `rainy-day/hills` endpoint (check [HillsEndpoint.java](src/main/java/com/github/tizbassar/rainyday/rest/HillsEndpoint.java)). 
+The body of the request should be json as follows 
+(check [HillsDto.java](src/main/java/com/github/tizbassar/rainyday/rest/HillsDto.java)):
+```json
+{
+  "hills": [4, 3, 2, 1, 3]
+}
+```
+
+The endpoint will return the answer in the answer body. The
+good practice is to return the redirect address with the
+created resource. Something like this: `GET rainy-day/hills/id`.
+But in my case I decided to return it straight in the answer
+body, as it is also used to return the updated resource. In
+our case, we don't do any operations, that affects the state.
+I decided not to use `GET` for that resource, as it is hard
+to provide the `hills` array using `GET`. The usage of request
+body is not recommended for `GET` requests, so I decided to
+go with `POST`.
+
 ## Technologies
 
 * [Maven](https://maven.apache.org/)
