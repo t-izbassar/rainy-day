@@ -50,10 +50,32 @@ out of the box.
 
 ## How to build and run
 
-@todo #2 Describe the process of how to build and
- run the project as this information is very
- important to the end-user. This should be done
- somewhere near the 0.1 version release.
+The application is built by providing the `rainy-day.war`,
+which can be deployed on any Java EE 7 compliant server
+(the WildFly is one that is tested though).
+To build deployable `war`, simply use
+```bash
+mvn package
+```
+
+For basic verification builds (Unit tests, coverage, static-analysis):
+```bash
+mvn verify
+```
+
+For integration tests it's required to have `docker` installed.
+The `maven-docker-plugin` will try to find relevant `docker`
+installation on your machine. Thus it is required to run it
+as administrator. To run full set of checks, that are performed
+on CI, (with `8080` port - choose any free one) run:
+```bash
+sudo env "PATH=$PATH" mvn verify -P integration-test \ 
+-Ddocker.local.port=8080
+```
+
+Also, there is `Dockerfile`, that you can use to start WildFly
+instance. It's used only for local development and is _not_
+equal to the CI one.
 
 ## Principles
 
