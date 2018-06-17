@@ -62,6 +62,13 @@ public final class HillsEndpointIT {
     }
 
     @Test
+    public void shouldReturnBadRequestForHillsWithNegativeValues()
+        throws Exception {
+        this.givenRequestedHills(1, 2, -5, 6)
+            .assertStatus(HttpURLConnection.HTTP_BAD_REQUEST);
+    }
+
+    @Test
     public void shouldCalculateZeroForEmptyHills() throws Exception {
         this.givenRequestedHills()
             .assertBody(

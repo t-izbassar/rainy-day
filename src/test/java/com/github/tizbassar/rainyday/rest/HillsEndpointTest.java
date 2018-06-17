@@ -25,21 +25,25 @@ package com.github.tizbassar.rainyday.rest;
 
 import com.github.tizbassar.rainyday.calc.SizeBasedVolume;
 import java.util.Arrays;
+import javax.ws.rs.BadRequestException;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  * Test cases for {@link HillsEndpoint}.
  *
  * @since 0.1
- * @checkstyle JavadocMethodCheck (500 lines)
+ * @checkstyle JavadocMethodCheck (150 lines)
+ * @checkstyle JavadocVariableCheck (150 lines)
  */
 public final class HillsEndpointTest {
 
-    /**
-     * Endpoint under test.
-     */
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
+
     private final HillsEndpoint endpoint = new HillsEndpoint(
         new SizeBasedVolume()
     );
@@ -49,6 +53,20 @@ public final class HillsEndpointTest {
         MatcherAssert.assertThat(
             new HillsEndpoint(),
             Matchers.notNullValue()
+        );
+    }
+
+    @Test
+    public void shouldThrowBadRequestForHillsWithNegativeValues() {
+        this.exception.expect(BadRequestException.class);
+        this.exception.expectMessage(
+            Matchers.containsString("should contain only positive values")
+        );
+        // @checkstyle MagicNumberCheck (5 lines)
+        this.endpoint.waterVolume(
+            new HillsDto(
+                Arrays.asList(1, 2, -3, 5, 6)
+            )
         );
     }
 

@@ -25,13 +25,14 @@ package com.github.tizbassar.rainyday.rest;
 
 import com.github.tizbassar.rainyday.calc.Volume;
 import javax.inject.Inject;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Main endpoint, that will calculate water volume in given hills.
+ * Main endpoint, that will calculate water volume for given hills.
  *
  * @since 0.1
  */
@@ -70,6 +71,11 @@ public class HillsEndpoint {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public int waterVolume(final HillsDto hills) {
+        if (hills.getHills().stream().anyMatch(x -> x < 0)) {
+            throw new BadRequestException(
+                "Hills should contain only positive values."
+            );
+        }
         return this.volume.calculate(hills.getHills());
     }
 }
