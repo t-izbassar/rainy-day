@@ -1,0 +1,7 @@
+architect:
+  - t-izbassar
+docker:
+  - as_root: true
+merge:
+  script:
+    - "mvn clean verify -P integration-test"

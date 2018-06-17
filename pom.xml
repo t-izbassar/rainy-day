@@ -213,7 +213,7 @@ SOFTWARE.
                         <configuration>
                             <images>
                                 <image>
-                                    <name>t-izbassar/rainy-day:${project.version}</name>
+                                    <name>tizbassar/rainy-day:${project.version}</name>
                                     <build>
                                         <from>jboss/wildfly</from>
                                         <ports>
