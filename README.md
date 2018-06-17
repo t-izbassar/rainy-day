@@ -3,6 +3,15 @@
 [![Build Status](https://travis-ci.org/t-izbassar/rainy-day.svg?branch=master)](https://travis-ci.org/t-izbassar/rainy-day)
 [![codecov](https://codecov.io/gh/t-izbassar/rainy-day/branch/master/graph/badge.svg)](https://codecov.io/gh/t-izbassar/rainy-day)
 
+## Contents
+
+- [Overall description](#overall-description)
+- [Implementation idea and complexity](#implementation-idea-and-complexity)
+- [Technologies](#technologies)
+- [How to build and run](#how-to-build-and-run)
+- [Principles](#principles)
+- [License](#license)
+
 ## Overall description
 
 It's a repository with source codes for application,
